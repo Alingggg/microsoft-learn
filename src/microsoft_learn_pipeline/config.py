@@ -1,0 +1,11 @@
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+CLICKHOUSE_HOST=os.getenv("CLICKHOUSE_HOST")
+CLICKHOUSE_PORT=os.getenv("CLICKHOUSE_PORT")
+CLICKHOUSE_DB=os.getenv("CLICKHOUSE_DB")
+CLICKHOUSE_PASSWORD=os.getenv("CLICKHOUSE_PASSWORD")
+
+MICROSOFT_LEARN_API_BASE_URL=os.getenv("MICROSOFT_LEARN_API_BASE_URL")
