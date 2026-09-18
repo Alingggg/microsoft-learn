@@ -551,22 +551,20 @@ SECTION_LOADS = {
     },
 }
 
-def to_postgres_value(value):
+def _to_postgres_value(value):
     if isinstance(value, (dict, list)):
         return Jsonb(value)
     return value
 
-def prepare_row(item, columns, snapshot_date):
+def _prepare_row(item, columns, snapshot_date):
     row = {
-        column: to_postgres_value(item.get(column))
+        column: _to_postgres_value(item.get(column))
         for column in columns
     }
     row["snapshot_date"] = snapshot_date
     return row
 
-def load_tables():
-    date_today = f"{datetime.datetime.now().date():%Y-%m-%d}"
-
+def load_tables(date_today):
     with get_connection() as conn:
         with conn.cursor() as cur:
             cur.execute(
@@ -584,11 +582,7 @@ def load_tables():
                 cur.executemany(
                     load["insert"],
                     [
-                        prepare_row(item, load["columns"], date_today)
+                        _prepare_row(item, load["columns"], date_today)
                         for item in raw_data[section]
                     ],
                 )
-
-    print("Data loaded into tables successfully.")
-
-load_tables()

@@ -1,0 +1,2 @@
+[console_scripts]
+pipeline = microsoft_learn_pipeline.main:main
