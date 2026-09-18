@@ -37,7 +37,7 @@ CREATE TABLE IF NOT EXISTS units (
     last_modified        TEXT
 );
 
-CREATE TABLE IF NOT EXISTS "learningPaths" (
+CREATE TABLE IF NOT EXISTS learning_paths (
     uid                  TEXT PRIMARY KEY,
     snapshot_date        DATE NOT NULL REFERENCES raw_data(snapshot_date) ON DELETE CASCADE,
     summary              TEXT,
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS "learningPaths" (
     number_of_children   INTEGER
 );
 
-CREATE TABLE IF NOT EXISTS "appliedSkills" (
+CREATE TABLE IF NOT EXISTS applied_skills (
     uid            TEXT PRIMARY KEY,
     snapshot_date  DATE NOT NULL REFERENCES raw_data(snapshot_date) ON DELETE CASCADE,
     locale         TEXT,
@@ -91,7 +91,7 @@ CREATE TABLE IF NOT EXISTS certifications (
     study_guide         JSONB
 );
 
-CREATE TABLE IF NOT EXISTS "mergedCertifications" (
+CREATE TABLE IF NOT EXISTS merged_certifications (
     uid                        TEXT PRIMARY KEY,
     snapshot_date              DATE NOT NULL REFERENCES raw_data(snapshot_date) ON DELETE CASCADE,
     title                      TEXT,
