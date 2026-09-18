@@ -6,6 +6,7 @@ from microsoft_learn_pipeline.config import (
     POSTGRES_USER,
     POSTGRES_PASSWORD,  
 )
+from psycopg.rows import dict_row
 
 def get_connection():
     return psycopg.connect(
@@ -14,4 +15,5 @@ def get_connection():
         dbname=POSTGRES_DB,
         user=POSTGRES_USER,
         password=POSTGRES_PASSWORD,
+        row_factory=dict_row
     )
