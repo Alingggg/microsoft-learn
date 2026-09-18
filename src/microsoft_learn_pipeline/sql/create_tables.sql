@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS raw_data (
 );
 
 CREATE TABLE IF NOT EXISTS modules (
-    uid                  TEXT PRIMARY KEY,
+    uid                  TEXT NOT NULL,
     snapshot_date        DATE NOT NULL REFERENCES raw_data(snapshot_date) ON DELETE CASCADE,
     summary              TEXT,
     levels               JSONB,
@@ -24,21 +24,23 @@ CREATE TABLE IF NOT EXISTS modules (
     url                  TEXT,
     "firstUnitUrl"       TEXT,
     units                JSONB,
-    number_of_children   INTEGER
+    number_of_children   INTEGER,
+    PRIMARY KEY (snapshot_date, uid)
 );
 
 CREATE TABLE IF NOT EXISTS units (
-    uid                  TEXT PRIMARY KEY,
+    uid                  TEXT NOT NULL,
     snapshot_date        DATE NOT NULL REFERENCES raw_data(snapshot_date) ON DELETE CASCADE,
     type                 TEXT,
     title                TEXT,
     duration_in_minutes  INTEGER,
     locale               TEXT,
-    last_modified        TEXT
+    last_modified        TEXT,
+    PRIMARY KEY (snapshot_date, uid)
 );
 
 CREATE TABLE IF NOT EXISTS learning_paths (
-    uid                  TEXT PRIMARY KEY,
+    uid                  TEXT NOT NULL,
     snapshot_date        DATE NOT NULL REFERENCES raw_data(snapshot_date) ON DELETE CASCADE,
     summary              TEXT,
     levels               JSONB,
@@ -57,11 +59,12 @@ CREATE TABLE IF NOT EXISTS learning_paths (
     url                  TEXT,
     "firstModuleUrl"     TEXT,
     modules              JSONB,
-    number_of_children   INTEGER
+    number_of_children   INTEGER,
+    PRIMARY KEY (snapshot_date, uid)
 );
 
 CREATE TABLE IF NOT EXISTS applied_skills (
-    uid            TEXT PRIMARY KEY,
+    uid            TEXT NOT NULL,
     snapshot_date  DATE NOT NULL REFERENCES raw_data(snapshot_date) ON DELETE CASCADE,
     locale         TEXT,
     url            TEXT,
@@ -72,11 +75,12 @@ CREATE TABLE IF NOT EXISTS applied_skills (
     products       JSONB,
     subjects       JSONB,
     study_guide    JSONB,
-    last_modified  TEXT
+    last_modified  TEXT,
+    PRIMARY KEY (snapshot_date, uid)
 );
 
 CREATE TABLE IF NOT EXISTS certifications (
-    uid                 TEXT PRIMARY KEY,
+    uid                 TEXT NOT NULL,
     snapshot_date       DATE NOT NULL REFERENCES raw_data(snapshot_date) ON DELETE CASCADE,
     title               TEXT,
     subtitle            TEXT,
@@ -88,11 +92,12 @@ CREATE TABLE IF NOT EXISTS certifications (
     exams               JSONB,
     levels              JSONB,
     roles               JSONB,
-    study_guide         JSONB
+    study_guide         JSONB,
+    PRIMARY KEY (snapshot_date, uid)
 );
 
 CREATE TABLE IF NOT EXISTS merged_certifications (
-    uid                        TEXT PRIMARY KEY,
+    uid                        TEXT NOT NULL,
     snapshot_date              DATE NOT NULL REFERENCES raw_data(snapshot_date) ON DELETE CASCADE,
     title                      TEXT,
     summary                    TEXT,
@@ -114,11 +119,12 @@ CREATE TABLE IF NOT EXISTS merged_certifications (
     locales                    JSONB,
     providers                  JSONB,
     career_paths               JSONB,
-    practice_assessment_uid    TEXT
+    practice_assessment_uid    TEXT,
+    PRIMARY KEY (snapshot_date, uid)
 );
 
 CREATE TABLE IF NOT EXISTS exams (
-    uid                      TEXT PRIMARY KEY,
+    uid                      TEXT NOT NULL,
     snapshot_date            DATE NOT NULL REFERENCES raw_data(snapshot_date) ON DELETE CASCADE,
     title                    TEXT,
     subtitle                 TEXT,
@@ -136,11 +142,12 @@ CREATE TABLE IF NOT EXISTS exams (
     roles                    JSONB,
     products                 JSONB,
     providers                JSONB,
-    study_guide              JSONB
+    study_guide              JSONB,
+    PRIMARY KEY (snapshot_date, uid)
 );
 
 CREATE TABLE IF NOT EXISTS courses (
-    uid                  TEXT PRIMARY KEY,
+    uid                  TEXT NOT NULL,
     snapshot_date        DATE NOT NULL REFERENCES raw_data(snapshot_date) ON DELETE CASCADE,
     course_number        TEXT,
     title                TEXT,
@@ -157,31 +164,36 @@ CREATE TABLE IF NOT EXISTS courses (
     study_guide          JSONB,
     recommendation_list  JSONB,
     certification        TEXT,
-    exam                 TEXT
+    exam                 TEXT,
+    PRIMARY KEY (snapshot_date, uid)
 );
 
 CREATE TABLE IF NOT EXISTS levels (
-    id            TEXT PRIMARY KEY,
+    id            TEXT NOT NULL,
     snapshot_date DATE NOT NULL REFERENCES raw_data(snapshot_date) ON DELETE CASCADE,
-    name          TEXT
+    name          TEXT,
+    PRIMARY KEY (snapshot_date, id)
 );
 
 CREATE TABLE IF NOT EXISTS products (
-    id            TEXT PRIMARY KEY,
+    id            TEXT NOT NULL,
     snapshot_date DATE NOT NULL REFERENCES raw_data(snapshot_date) ON DELETE CASCADE,
     name          TEXT,
-    children      JSONB
+    children      JSONB,
+    PRIMARY KEY (snapshot_date, id)
 );
 
 CREATE TABLE IF NOT EXISTS roles (
-    id            TEXT PRIMARY KEY,
+    id            TEXT NOT NULL,
     snapshot_date DATE NOT NULL REFERENCES raw_data(snapshot_date) ON DELETE CASCADE,
-    name          TEXT
+    name          TEXT,
+    PRIMARY KEY (snapshot_date, id)
 );
 
 CREATE TABLE IF NOT EXISTS subjects (
-    id            TEXT PRIMARY KEY,
+    id            TEXT NOT NULL,
     snapshot_date DATE NOT NULL REFERENCES raw_data(snapshot_date) ON DELETE CASCADE,
     name          TEXT,
-    children      JSONB
+    children      JSONB,
+    PRIMARY KEY (snapshot_date, id)
 );

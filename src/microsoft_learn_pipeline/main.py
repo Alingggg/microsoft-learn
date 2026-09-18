@@ -2,7 +2,7 @@ from datetime import datetime
 from microsoft_learn_pipeline.extract.catalogs import (
     extract_microsoft_learn_catalog,
 )
-from microsoft_learn_pipeline.gold.catalogs import (
+from microsoft_learn_pipeline.transform.catalogs import (
     load_tables as transform_microsoft_learn_catalog,
 )
 
@@ -18,4 +18,4 @@ def main():
         print(f"Error occurred: {e}")
 
 if __name__ == "__main__":
-    main()  
+    main()
